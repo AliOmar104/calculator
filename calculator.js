@@ -3,6 +3,8 @@ let buffer = "0";
 let previousOperator;
 const screen = document.querySelector(".screen");
 
+let equal = false;
+
 function buttonClick(value) {
   if (isNaN(parseInt(value))) {
     handleSymbol(value);
@@ -13,8 +15,9 @@ function buttonClick(value) {
 }
 
 function handleNumber(value) {
-  if (buffer === "0") {
+  if (buffer === "0" || equal) {
     buffer = value;
+    equal = false;
   } else {
     buffer += value;
   }
@@ -64,6 +67,7 @@ function handleSymbol(value) {
       previousOperator = null;
       buffer = +runningTotal;
       runningTotal = 0;
+      equal = true;
       break;
     case "←":
       if (buffer.length === 1) {
